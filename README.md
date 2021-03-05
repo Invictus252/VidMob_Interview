@@ -3,4 +3,4 @@
 
 This a python file using only builtin libraries.
 
-Can be run with python3 vidmobCalculator.py
+Can be run with <code>python3 vidmobCalculator.py</code>
