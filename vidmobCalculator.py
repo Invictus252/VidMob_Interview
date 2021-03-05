@@ -52,7 +52,7 @@ while token:
 
 
 # using only standard libraries
-import re,math,unittest
+import re,unittest
 
 
 ''' Takes in string and applies a Shunting Yard Algorithm to the expression '''
