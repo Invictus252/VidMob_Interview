@@ -29,25 +29,25 @@ while token:
       pop operators from stack to queue
     pop the '(' from stack and trash
   while operator on stack, pop to queue
-  
+
 3. Apply custom eval method on returned queue from 3
 4. Return answer
- 
- 
+
+
  TO DO
  ---------------------
  Debug:
    - vs + output in certain cases
    Further Input Validation
-  
+
  Implement:
     command line argument passing
     ??? simple flask api ???
- 
+
  And:
  Seperate test script
- 
- 
+
+
 '''
 
 
@@ -78,7 +78,7 @@ class Calculate:
     def peekStack(self,stack):
         return stack[-1] if stack else None
 
-    def greater_precedence(self,op1, op2):
+    def greaterPrecedence(self,op1, op2):
         ''' Uses Dictionary Mapping to provide comparison '''
         precedences = {'+' : 0, '-' : 0, '*' : 1, '/' : 1}
         return precedences[op1] > precedences[op2]
@@ -132,7 +132,7 @@ class Calculate:
                 operatorStack.pop()
             else:
                 top = self.peekStack(operatorStack)
-                while top is not None and top not in "()" and self.greater_precedence(top, token):
+                while top is not None and top not in "()" and self.greaterPrecedence(top, token):
                     outputQueue.append(operatorStack.pop())
                 operatorStack.append(token)
         while self.peekStack(operatorStack) is not None:
