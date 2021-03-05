@@ -10,12 +10,12 @@ Can be run with <code>python3 vidmobCalculator.py</code>
  TO DO
  ---------------------
  Debug:
-   - vs + output in certain cases
-   Further Input Validation
+   1. negative vs positive output in certain cases
+   2. Further Input Validation
   
  Implement:
-    command line argument passing
-    ??? simple flask api ???
+    1. command line argument passing
+    2. ??? simple flask api ???
  
  And:
  Seperate test script
