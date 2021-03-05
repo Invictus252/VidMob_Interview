@@ -13,9 +13,10 @@ Can be run with <code>python3 vidmobCalculator.py</code>
    1. negative vs positive output in certain cases
    2. Further Input Validation
   
+  
  Implement:
-    1. command line argument passing
-    2. ??? simple flask api ???
+   1. command line argument passing
+   2. ??? simple flask api ???
  
  And:
  Seperate test script
