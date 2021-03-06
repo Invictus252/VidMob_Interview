@@ -65,7 +65,12 @@ class Calculate:
         return self.toRPN(tokenList)
 
     def cleanInput(self,inString):
-        tokens = re.findall("-?\d*\.{0,1}\d+|[-+/*()]", inString)
+        #tokens = re.findall("-?\d*\.{0,1}\d+|[+-/*()]", inString)
+        tokens = re.findall("-?\d*\.\d+|-?\d+|[+-/*()]", inString)
+        print(tokens)
+        for token in tokens:
+            if '-' in token:
+                token
         return tokens
 
     def isNumber(self,str):
@@ -80,7 +85,7 @@ class Calculate:
 
     def greaterPrecedence(self,op1, op2):
         ''' Uses Dictionary Mapping to provide comparison '''
-        precedences = {'+' : 0, '-' : 0, '*' : 1, '/' : 1}
+        precedences = {'-' : 0, '+' : 0, '*' : 1, '/' : 1}
         return precedences[op1] > precedences[op2]
 
     def parseRPN(self,expression):
@@ -93,13 +98,14 @@ class Calculate:
 
         """ Evaluate a reverse polish notation """
         tokens = expression
+        print(tokens)
         stack = []
-
         for token in tokens:
             if token in ops: #---compare against ops dictionary
                 arg2 = stack.pop()
                 arg1 = stack.pop()
                 result = ops[token](arg1, arg2)
+                print("{} {} {} = {}".format(arg1,token,arg2,result))
                 stack.append(result)
 
             else:
@@ -120,35 +126,45 @@ class Calculate:
         operatorStack = []
         outputQueue = []
         for token in tokens:
-            if self.isNumber(token):
-                 outputQueue.append(token)
+            if self.isNumber(token) :
+                outputQueue.append(token)
             elif token == '(':
+                # if token != tokens[0]:
+                #     operatorStack.append('+')
                 operatorStack.append(token)
+                operatorStack.append('+')
+
             elif token == ')':
                 top = self.peekStack(operatorStack)
                 while top != '(':
-                    outputQueue.append(operatorStack.pop())
+                    print(outputQueue.append(operatorStack.pop()))
                     top = self.peekStack(operatorStack)
                 operatorStack.pop()
+
+
             else:
                 top = self.peekStack(operatorStack)
                 while top is not None and top not in "()" and self.greaterPrecedence(top, token):
                     outputQueue.append(operatorStack.pop())
                 operatorStack.append(token)
+
         while self.peekStack(operatorStack) is not None:
             outputQueue.append(operatorStack.pop())
 
+            #6 5 3 - - 10 +
         out = self.parseRPN(outputQueue)
+
         return out
 
 
 class TestProgram(unittest.TestCase):
-    def test_positive(self):
-        testCases = [["-.32       /.5",-0.64],["4*5/2",10],["-5+-8--11*2",9],["(4-2)*3.5",7]]
+    def testCases(self):
+        testCases = [["-.32       /.5",-0.64],["4*    5/2",10],["-5+-8--11*2",9],["6-(5-3)+10",14],["(4-2)*3.5",7]]
         message = "<--- Mismatch --->"
         for x in testCases:
             tmp = Calculate(x[0])
-            self.assertEqual(tmp.performCalculations(), x[1], message)
+            print(x[0])
+            print(self.assertEqual(tmp.performCalculations(), x[1], message))
 
 
 def gatherUserInput():
@@ -158,9 +174,9 @@ def gatherUserInput():
 def main():
     startString = gatherUserInput()
     answer = Calculate(startString)
-    print(answer.performCalculations())
+    answer.performCalculations()
 
 
 if __name__ == "__main__":
-    main()
-    # unittest.main()
+    #main()
+    unittest.main()
