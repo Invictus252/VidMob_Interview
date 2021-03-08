@@ -3,7 +3,7 @@ import java.text.*;
 
 public class infixToRpn{
 
-    static boolean isNumber(String str) {
+    public boolean isNumber(String str) {
         try{
             Double.valueOf(str);
             return true;
@@ -12,7 +12,7 @@ public class infixToRpn{
         }
     }
 
-    Queue<String> convertInfixToRPN(String infixNotation) {
+    public Queue<String> convertInfixToRPN(String infixNotation) {
         String[] input = infixNotation.split("(?<=[-+*/\\(\\)])|(?=[-+*/\\(\\)])");
         Integer operatorCount = infixNotation.replaceAll("[^-+/*]","").length();
         Map<String, Integer> precedence = new HashMap<>();
@@ -71,11 +71,11 @@ public class infixToRpn{
         return outputQueue;
     }
 
-    public double evaluateRpn(String[] tokens){
+    public double evaluateRpn(List<String> tokens){
         Stack<Double> outputStack = new Stack<>();
         double rightOperand,leftOperand;
-        for(int i = 0; i < tokens.length; i++){
-            switch (tokens[i]){
+        for(String token : tokens){
+            switch (token){
                 case "+":
                     if(outputStack.size() == 1){
                         throw new IllegalArgumentException("Invalid amount of operands to operators");
@@ -111,29 +111,35 @@ public class infixToRpn{
                     }
                     break;
                 default:
-                    outputStack.push(Double.parseDouble(tokens[i]));
+                    outputStack.push(Double.parseDouble(token));
             }
         }
         return outputStack.pop();
     }
 
-    public String[] toStringArray(Queue in) {
-        var list = new ArrayList(in);
-        String out[] = new String[list.size()];// ArrayList to String Array conversion
+    public List<String> toStringList(Queue<String> in) {
+        ArrayList<String> list = new ArrayList<String>(in);
+        List<String> outList = new ArrayList<String>();
         for(int j =0;j<list.size();j++){
-            out[j] = (String) list.get(j);
+            outList.add(list.get(j));
         }
-        return out;
+        return outList;
     }
 
     public static void main(String[] args) {
-        String testCases[] = {"1 + 2", "4*5/2", "-.32       /.5", "(4-2)*3.5","6-(5-3)+10","19 + cinnamon"};
+        List<String> testList = new ArrayList<String>();
+        testList.add("1 + 2");
+        testList.add("4*5/2");
+        testList.add("-.32       /.5");
+        testList.add("(4-2)*3.5");
+        testList.add("6-(5-3)+10");
+        testList.add("19 + cinnamon");
 
-        for(int j =0;j<testCases.length;j++){
-            Queue<String> toRpn = new infixToRpn().convertInfixToRPN(testCases[j]);
-            var rpnArray = new infixToRpn().toStringArray(toRpn);
-            for(int i = 0;i < rpnArray.length;i++){
-                System.out.print(rpnArray[i] + " ");
+        for(String test : testList){
+            Queue<String> toRpn = new infixToRpn().convertInfixToRPN(test);
+            List<String> rpnArray = new infixToRpn().toStringList(toRpn);
+            for(String answer : rpnArray){
+                System.out.print(answer + " ");
             }
             double answer = new infixToRpn().evaluateRpn(rpnArray);
             DecimalFormat df = new DecimalFormat("0.###");
@@ -142,4 +148,3 @@ public class infixToRpn{
 
     }
 }
-
