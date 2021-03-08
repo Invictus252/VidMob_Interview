@@ -1,10 +1,21 @@
+package com.company;
 import java.util.*;
 import java.text.*;
 
+/**
+ * infixToRpn.java
+ * Retrieves user input for infix notation. Converts to postfix(Reverse Polish Notation) and evaluates the
+ * answer accordingly.
+ * @author Jason Smith
+ * @date 3/8/2021
+ */
 public class infixToRpn{
-
-    static boolean isNumber(String str) {
-        try{
+    /**
+     * @param str String of possible number
+     * @return True is number / False is not
+     */
+     static boolean isNumber(String str) {
+          try{
             Double.valueOf(str);
             return true;
         } catch(Exception e){
@@ -12,6 +23,11 @@ public class infixToRpn{
         }
     }
 
+    /**
+     * Converts User input to Reverse Polish Notation
+     * @param infixNotation User input string
+     * @return Queue of operators and operands in postfix order
+     */
     Queue<String> convertInfixToRPN(String infixNotation) {
         String[] input = infixNotation.split("(?<=[-+*/\\(\\)])|(?=[-+*/\\(\\)])");
         Integer operatorCount = infixNotation.replaceAll("[^-+/*]","").length();
@@ -71,6 +87,11 @@ public class infixToRpn{
         return outputQueue;
     }
 
+    /**
+     * Evaluates Reverse Polish Notation and performs needed calculations
+     * @param tokens String[] of postfix tokens to process
+     * @return double of correct answer
+     */
     public double evaluateRpn(String[] tokens){
         Stack<Double> outputStack = new Stack<>();
         double rightOperand,leftOperand;
@@ -127,18 +148,50 @@ public class infixToRpn{
     }
 
     public static void main(String[] args) {
-        String testCases[] = {"1 + 2", "4*5/2", "-.32       /.5", "(4-2)*3.5","6-(5-3)+10","19 + cinnamon"};
 
-        for(int j =0;j<testCases.length;j++){
-            Queue<String> toRpn = new infixToRpn().convertInfixToRPN(testCases[j]);
+        /**
+         * Uncomment Below for testing
+         */
+//        String testCases[] = {"1 + 2", "4*5/2", "-.32       /.5", "(4-2)*3.5","6-(5-3)+10","19 + cinnamon"};
+
+//        for(int j =0;j<testCases.length;j++){
+//            Queue<String> toRpn = new infixToRpn().convertInfixToRPN(testCases[j]);
+//            var rpnArray = new infixToRpn().toStringArray(toRpn);
+//            for(int i = 0;i < rpnArray.length;i++){
+//                System.out.print(rpnArray[i] + " ");
+//            }
+//            double answer = new infixToRpn().evaluateRpn(rpnArray);
+//            DecimalFormat df = new DecimalFormat("0.###");
+//            System.out.println(String.format("Answer is :  %s",df.format(answer)));
+//        }
+        //------------------------------------------------------------------------------------------------------
+
+
+
+        var run = true;
+        while(run){
+            Scanner appScanner = new Scanner(System.in);
+            System.out.println("[use 'exit' to end]\n  Enter equation:");
+
+            String userInput = appScanner.nextLine();  // Read user input
+            if(userInput.replaceAll("\\s+","").equalsIgnoreCase("exit")){
+                run = false;
+                continue;
+            }
+            Queue<String> toRpn = new infixToRpn().convertInfixToRPN(userInput);
             var rpnArray = new infixToRpn().toStringArray(toRpn);
             for(int i = 0;i < rpnArray.length;i++){
                 System.out.print(rpnArray[i] + " ");
             }
             double answer = new infixToRpn().evaluateRpn(rpnArray);
+            /**
+             * Check for int or double to give answer in correct format
+             */
             DecimalFormat df = new DecimalFormat("0.###");
             System.out.println(String.format("Answer is :  %s",df.format(answer)));
+
         }
+
 
     }
 }
