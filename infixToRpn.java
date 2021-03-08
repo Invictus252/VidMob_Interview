@@ -52,7 +52,7 @@ public class infixToRpn{
                 outputQueue.add(token);
                 continue;
             }
-            if(operatorStack.size() > outputQueue.size() ){
+            if(operatorStack.size() < outputQueue.size() ){
                 throw new IllegalArgumentException(String.format("Syntax Error in %s",infixNotation));
             }
 
@@ -77,6 +77,9 @@ public class infixToRpn{
         for(int i = 0; i < tokens.length; i++){
             switch (tokens[i]){
                 case "+":
+                    if(outputStack.size() == 1){
+                        throw new IllegalArgumentException("Invalid amount of operands to operators");
+                    }
                     outputStack.push(outputStack.pop() + outputStack.pop());
                     break;
                 case "-":
@@ -92,9 +95,15 @@ public class infixToRpn{
                         break;
                     }
                 case "*":
+                    if(outputStack.size() == 1){
+                        throw new IllegalArgumentException("Invalid amount of operands to operators");
+                    }
                     outputStack.push(outputStack.pop() * outputStack.pop());
                     break;
                 case "/":
+                    if(outputStack.size() == 1){
+                        throw new IllegalArgumentException("Invalid amount of operands to operators");
+                    }
                     rightOperand = outputStack.pop();
                     if(rightOperand != 0){
                         leftOperand = outputStack.pop();
@@ -118,7 +127,7 @@ public class infixToRpn{
     }
 
     public static void main(String[] args) {
-        String testCases[] = {"1 + 2", "4*5/2", "-.32       /.5", "(4-2)*3.5","6-(5-3)+10","2+-+-4"};
+        String testCases[] = {"1 + 2", "4*5/2", "-.32       /.5", "(4-2)*3.5","6-(5-3)+10","19 + cinnamon"};
 
         for(int j =0;j<testCases.length;j++){
             Queue<String> toRpn = new infixToRpn().convertInfixToRPN(testCases[j]);
