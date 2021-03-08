@@ -1,10 +1,20 @@
 import java.util.*;
 import java.text.*;
 
+/**
+ * infixToRpn.java
+ * Retrieves user input for infix notation. Converts to postfix(Reverse Polish Notation) and evaluates the
+ * answer accordingly.
+ * @author Jason Smith
+ * @date 3/8/2021
+ */
 public class infixToRpn{
-
-    public boolean isNumber(String str) {
-        try{
+    /**
+     * @param str String of possible number
+     * @return True is number / False is not
+     */
+     static boolean isNumber(String str) {
+          try{
             Double.valueOf(str);
             return true;
         } catch(Exception e){
@@ -12,7 +22,12 @@ public class infixToRpn{
         }
     }
 
-    public Queue<String> convertInfixToRPN(String infixNotation) {
+    /**
+     * Converts User input to Reverse Polish Notation
+     * @param infixNotation User input string
+     * @return Queue of operators and operands in postfix order
+     */
+    Queue<String> convertInfixToRPN(String infixNotation) {
         String[] input = infixNotation.split("(?<=[-+*/\\(\\)])|(?=[-+*/\\(\\)])");
         Integer operatorCount = infixNotation.replaceAll("[^-+/*]","").length();
         Map<String, Integer> precedence = new HashMap<>();
@@ -71,6 +86,11 @@ public class infixToRpn{
         return outputQueue;
     }
 
+    /**
+     * Evaluates Reverse Polish Notation and performs needed calculations
+     * @param tokens String[] of postfix tokens to process
+     * @return double of correct answer
+     */
     public double evaluateRpn(List<String> tokens){
         Stack<Double> outputStack = new Stack<>();
         double rightOperand,leftOperand;
@@ -142,9 +162,14 @@ public class infixToRpn{
                 System.out.print(answer + " ");
             }
             double answer = new infixToRpn().evaluateRpn(rpnArray);
+            /**
+             * Check for int or double to give answer in correct format
+             */
             DecimalFormat df = new DecimalFormat("0.###");
             System.out.println(String.format("Answer is :  %s",df.format(answer)));
+
         }
+
 
     }
 }
