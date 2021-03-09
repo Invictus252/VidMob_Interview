@@ -22,6 +22,11 @@ public class infixToRpn{
         }
     }
 
+
+    /**
+    * @param Input string
+    * @return Boolean True if matched
+    **/
     private static boolean isMatchingParenthesis(String str){
       int count = 0;
       char[] characters = str.toCharArray();
