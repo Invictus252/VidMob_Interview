@@ -27,7 +27,7 @@ public class infixToRpn{
      * @param infixNotation User input string
      * @return Queue of operators and operands in postfix order
      */
-    Queue<String> convertInfixToRPN(String infixNotation) {
+    public Queue<String> convertInfixToRPN(String infixNotation) {
         String[] input = infixNotation.split("(?<=[-+*/\\(\\)])|(?=[-+*/\\(\\)])");
         Integer operatorCount = infixNotation.replaceAll("[^-+/*]","").length();
         Map<String, Integer> precedence = new HashMap<>();
@@ -147,29 +147,57 @@ public class infixToRpn{
     }
 
     public static void main(String[] args) {
-        List<String> testList = new ArrayList<String>();
-        testList.add("1 + 2");
-        testList.add("4*5/2");
-        testList.add("-.32       /.5");
-        testList.add("(4-2)*3.5");
-        testList.add("6-(5-3)+10");
-        testList.add("19 + cinnamon");
+        // List<String> testList = new ArrayList<String>();
+        // testList.add("1 + 2");
+        // testList.add("4*5/2");
+        // testList.add("-.32       /.5");
+        // testList.add("(4-2)*3.5");
+        // testList.add("6-(5-3)+10");
+        // testList.add("19 + cinnamon");
+        //
+        // for(String test : testList){
+        //     Queue<String> toRpn = new infixToRpn().convertInfixToRPN(test);
+        //     List<String> rpnArray = new infixToRpn().toStringList(toRpn);
+        //     for(String answer : rpnArray){
+        //         System.out.print(answer + " ");
+        //     }
+        //     double answer = new infixToRpn().evaluateRpn(rpnArray);
+        //     /**
+        //      * Check for int or double to give answer in correct format
+        //      */
+        //     DecimalFormat df = new DecimalFormat("0.###");
+        //     System.out.println(String.format("Answer is :  %s",df.format(answer)));
+        //
+        //
+        //
+        //     }
+        //
+        //
+        // }
 
-        for(String test : testList){
-            Queue<String> toRpn = new infixToRpn().convertInfixToRPN(test);
-            List<String> rpnArray = new infixToRpn().toStringList(toRpn);
-            for(String answer : rpnArray){
-                System.out.print(answer + " ");
-            }
-            double answer = new infixToRpn().evaluateRpn(rpnArray);
-            /**
-             * Check for int or double to give answer in correct format
-             */
-            DecimalFormat df = new DecimalFormat("0.###");
-            System.out.println(String.format("Answer is :  %s",df.format(answer)));
+        Scanner sc = new Scanner(System.in);
+        boolean run = true;
+        while(run){
+          System.out.println("Enter equation or exit to end");
+
+          String userInput = sc.nextLine();
+          if(userInput.replaceAll("\\s+","").equalsIgnoreCase("exit")){
+            run = false;
+            continue;
+          }
+          System.out.println("Equation is: " + userInput);
+          Queue<String> toRpn = new infixToRpn().convertInfixToRPN(userInput);
+          List<String> rpnArray = new infixToRpn().toStringList(toRpn);
+          for(String answer : rpnArray){
+              System.out.print(answer + " ");
+          }
+          double answer = new infixToRpn().evaluateRpn(rpnArray);
+          /**
+           * Check for int or double to give answer in correct format
+           */
+          DecimalFormat df = new DecimalFormat("0.###");
+          System.out.println(String.format("Answer is :  %s",df.format(answer)));
 
         }
-
-
-    }
+}
 }
