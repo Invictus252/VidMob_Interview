@@ -13,7 +13,7 @@ public class infixToRpn{
      * @param str String of possible number
      * @return True is number / False is not
      */
-     static boolean isNumber(String str) {
+    private static boolean isNumber(String str) {
           try{
             Double.valueOf(str);
             return true;
@@ -22,12 +22,34 @@ public class infixToRpn{
         }
     }
 
+    private static boolean isMatchingParenthesis(String str){
+      int count = 0;
+      char[] characters = str.toCharArray();
+      for(char ch : characters){
+        if(ch == '(')
+          count++;
+        else if(ch == ')'){
+          count--;
+          if(count<0)
+            return false;
+        }
+      }
+      if(count==0)
+        return true;
+      else
+        return false;
+    }
+
+
     /**
      * Converts User input to Reverse Polish Notation
      * @param infixNotation User input string
      * @return Queue of operators and operands in postfix order
      */
     public Queue<String> convertInfixToRPN(String infixNotation) {
+        if(!isMatchingParenthesis(infixNotation)){
+          throw new IllegalArgumentException(String.format("Mismatched () in %s",infixNotation));
+        }
         String[] input = infixNotation.split("(?<=[-+*/\\(\\)])|(?=[-+*/\\(\\)])");
         Integer operatorCount = infixNotation.replaceAll("[^-+/*]","").length();
         Map<String, Integer> precedence = new HashMap<>();
@@ -199,5 +221,5 @@ public class infixToRpn{
           System.out.println(String.format("Answer is :  %s",df.format(answer)));
 
         }
-}
-}
+      }
+    }
