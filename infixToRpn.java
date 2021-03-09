@@ -186,7 +186,7 @@ public class infixToRpn{
             continue;
           }
           System.out.println("Equation is: " + userInput);
-          Queue<String> toRpn = new infixToRpn().convertInfixToRPN(userInput);
+          Queue<String> toRpn = new infixToRpn().convertInfixToRPN(userInput.replaceAll("\\s+",""));
           List<String> rpnArray = new infixToRpn().toStringList(toRpn);
           for(String answer : rpnArray){
               System.out.print(answer + " ");
