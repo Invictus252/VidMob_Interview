@@ -174,6 +174,10 @@ public class infixToRpn{
     }
 
     public static void main(String[] args) {
+      //-----------------------------------------------------------
+      //    UNCOMENT BELOW FOR TESTING
+      //-----------------------------------------------------------
+
         // List<String> testList = new ArrayList<String>();
         // testList.add("1 + 2");
         // testList.add("4*5/2");
@@ -194,12 +198,7 @@ public class infixToRpn{
         //      */
         //     DecimalFormat df = new DecimalFormat("0.###");
         //     System.out.println(String.format("Answer is :  %s",df.format(answer)));
-        //
-        //
-        //
-        //     }
-        //
-        //
+        //   }
         // }
 
         Scanner sc = new Scanner(System.in);
@@ -219,9 +218,7 @@ public class infixToRpn{
               System.out.print(answer + " ");
           }
           double answer = new infixToRpn().evaluateRpn(rpnArray);
-          /**
-           * Check for int or double to give answer in correct format
-           */
+          //Check for int or double to give answer in correct format
           DecimalFormat df = new DecimalFormat("0.###");
           System.out.println(String.format("Answer is :  %s",df.format(answer)));
 
