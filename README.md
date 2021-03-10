@@ -4,7 +4,7 @@ Interview 3 Task: Write a calculator program. The program should let a user ente
 Can be compiled with  <code>javac Main.java Calculator.java</code>
 Can then be run with <code>java Calculator</code>
 
-Calculator_Class.zip is an IntelliJ project export. It is complet with a testing class as well as the program
+Calculator_Class.zip is an IntelliJ project export. It is complete with a testing class as well as the program.
 
  
   
