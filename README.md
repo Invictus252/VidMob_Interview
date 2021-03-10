@@ -13,7 +13,7 @@ This project was completed using the IntelliJ IDE.
 Basic an be compiled with  <code>javac Main.java Calculator.java</code>
 Can then be run with <code>java Calculator</code>
 
-Calculator_Class_IntelliJ.zip is an IntelliJ project export. It is complete with a testing class as well as the program. The tests are compiles
+Calculator_Class_IntelliJ.zip is an IntelliJ project export. It is complete with a testing class as well as the program. 
 
  
   
